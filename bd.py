@@ -37,11 +37,11 @@ class StudentRepository:
         for user in all_students:
             if(user.userName==student.userName):
                 print("studend exists")
-                return "student exists"
+                #return "student exists"
         new_student={"userName": student.userName, "firstName":student.firstName, "lastName":student.lastName}
         coll.insert_one(new_student)
         print("student inserted")
-        return "done"
+        #return "done"
         #print(result.inserted_id)
         #return result.inserted_id
 

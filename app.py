@@ -58,7 +58,7 @@ def token_required(f):
         try:
             data=jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             print(data)
-            return f(*args, **kwargs), 200
+            return "Done ", 200
         except:
             return "Token is invalid", 403
     return decorated
@@ -72,7 +72,7 @@ def createStudent():
     try:
         content = request.json
         student= Student(0, content['userName'], content['firstName'], content['lastName'])
-        result=connection.createStudent(student)
+        connection.createStudent(student)
         #return result, 200
         #if(newId==None):
             #return "Student is not created  ", 404
