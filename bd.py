@@ -36,14 +36,12 @@ class StudentRepository:
         all_students=self.getListOfStudents()
         for user in all_students:
             if(user.userName==student.userName):
-                print("studend exists")
-                #return "student exists"
+                return None
         new_student={"userName": student.userName, "firstName":student.firstName, "lastName":student.lastName}
-        coll.insert_one(new_student)
-        print("student inserted")
-        #return "done"
-        #print(result.inserted_id)
-        #return result.inserted_id
+        result=coll.insert_one(new_student)
+        print(result.inserted_id)
+        return result.inserted_id
+
 
 
 if __name__ == '__main__':

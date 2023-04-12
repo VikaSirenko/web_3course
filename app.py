@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify, make_response
 from bd import *
 from student import *
 from flask import copy_current_request_context
@@ -53,14 +53,16 @@ def token_required(f):
 
         if not token:
             return "Token is missing", 403
-        
-        
         try:
             data=jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
             print(data)
-            return "Done ", 200
+            result = f(*args, **kwargs)
+            print(result)
+            return result[0], 200
         except:
             return "Token is invalid", 403
+        
+        
     return decorated
 
 
@@ -72,14 +74,14 @@ def createStudent():
     try:
         content = request.json
         student= Student(0, content['userName'], content['firstName'], content['lastName'])
-        connection.createStudent(student)
-        #return result, 200
-        #if(newId==None):
-            #return "Student is not created  ", 404
-        #else:
-        return "Student created", 200
+        newId= connection.createStudent(student)
+        if(newId==None):
+            return  "Student with that username exists ", 404
+        else:
+            return "Student created", 200
     except:
         return "It is not possible to create a new student", 404
+
 
 
 
