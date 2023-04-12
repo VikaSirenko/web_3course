@@ -39,16 +39,9 @@ class StudentRepository:
                 return None
         new_student={"userName": student.userName, "firstName":student.firstName, "lastName":student.lastName}
         result=coll.insert_one(new_student)
-        print(result.inserted_id)
         return result.inserted_id
 
 
-
-if __name__ == '__main__':
-    student=Student(0, "vita", "vifff", "jfkdkggkf")
-    connection = StudentRepository()
-    result=connection.createStudent(student)
-    print(result)
     
 
 

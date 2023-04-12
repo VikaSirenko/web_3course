@@ -55,9 +55,7 @@ def token_required(f):
             return "Token is missing", 403
         try:
             data=jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
-            print(data)
             result = f(*args, **kwargs)
-            print(result)
             return result[0], 200
         except:
             return "Token is invalid", 403
